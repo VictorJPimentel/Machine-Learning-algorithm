@@ -12,8 +12,6 @@ from decimal import Decimal
 data = pd.read_csv("winequality-red.csv", sep = ";")
 
 data = data[["fixed acidity",  "alcohol", "quality", "sulphates", "pH", "chlorides"]]
-print(data.head())
-
 
 #quality
 """
@@ -73,16 +71,20 @@ for _ in range(20030):
         sys.exit()
 """
 
-pickle_in = open("wine.pickle", "rb")
+pickle_in = open("wine70.pickle", "rb")
 linear = pickle.load(pickle_in)
 
+print("-----------------------------------------------------------------------------------------------")
+print("   |  ", "T. pH" , "   |", "F. acidity", "|  ", "alcohol", "| ", "quality", "  | ", "sulphates", "|", "chlorides", "|  ", "A. pH", " |")
 prediction = linear.predict(x_test)
+print("-----------------------------------------------------------------------------------------------")
 
-for x in range(len(prediction)):
-    print(round(prediction[x], 2), x_test[x], round(y_test[x], 2))
-
+for x in range(0, 5):
+    print("   |   ", round(prediction[x], 2), "   |   ", round(x_test[x][0], 2), "   |   ", round(x_test[x][1], 2), "   |   ", round(x_test[x][2], 2), "   |   ", round(x_test[x][3], 2), "   |   ", round(x_test[x][4], 2), "   |   ", round(y_test[x], 2), "   |   ")
+    print("-----------------------------------------------------------------------------------------------")
 acc = linear.score(x_test, y_test)
-print(acc)
+print("|", acc)
+print("-----------------------------------------------------------------------------------------------")
 
 p = 'pH'
 style.use("ggplot")
